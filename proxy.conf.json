@@ -1,0 +1,15 @@
+{
+    "/api/test": {
+      "target": "http://localhost:8080/apiman-gateway/test-organisation/test-api/1.0",
+      "secure": false
+    }, 
+    "/oauth2/authorize": {
+      "target": "https://localhost:9443",
+      "secure": true
+    },
+    "/dashboard": {
+        "target": "https://localhost:9443",
+        "secure": true
+    }
+  }
+  

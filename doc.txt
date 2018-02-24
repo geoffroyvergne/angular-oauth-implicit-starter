@@ -1,0 +1,16 @@
+WSO2
+https://docs.wso2.com/display/IS541/Self-contained+Access+Tokens
+https://docs.wso2.com/display/IS541/OAuth2+Token+Revocation
+https://docs.wso2.com/display/IS541/OAuth2+Token+Validation+and+Introspection
+
+
+Authorize : 
+https://localhost:9443/oauth2/authorize?scope=openid&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=7mETTt_RwUw76kksO_KWyWBkPb4a
+http://localhost:4200/oauth2/authorize?scope=openid&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A4200&client_id=7mETTt_RwUw76kksO_KWyWBkPb4a
+
+
+http://localhost:4200/?code=72531e78-e425-3b0d-ab3c-e9038da31ead&session_state=acba0ef7ec106808dd20f97fa042fa203a4b3022928faed8dc16aec383f83e14.KcnPCNozIF3_58Jk7NASug
+
+Token : 
+https://localhost:9443/oauth2/token?scope=openid&client_secret=tJjJbXyTX5mVRdjHyilKOf4XB1ka
+
