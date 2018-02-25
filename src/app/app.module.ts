@@ -1,10 +1,10 @@
+import { AppHttpInterceptor } from './app.http.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AppComponent } from './app.component';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { initializer } from './app.init';
-
 
 @NgModule({
   declarations: [
@@ -19,6 +19,11 @@ import { initializer } from './app.init';
       useFactory: initializer,
       multi: true,
       deps: [OAuthService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptor,
+      multi: true,
     },
     HttpClient
   ],

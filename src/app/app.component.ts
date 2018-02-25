@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './auth-config';
@@ -11,8 +12,27 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc';
 })
 export class AppComponent {
   title = 'app';
+  data: any;
 
-  constructor(private oauthService: OAuthService) {
+  constructor(private oauthService: OAuthService, private http: HttpClient) {
+  }
+
+  private http404Test() {
+    console.log('http404Test');
+    this.http.get('qsdqsd').subscribe(
+      data => {
+         this.data = data;
+         console.log(this.data);
+    });
+  }
+
+  private httpStatusTest() {
+    console.log('httpStatusTest');
+    this.http.get('assets/status.json').subscribe(
+      data => {
+         this.data = data;
+         console.log(this.data);
+    });
   }
 
   private getToken() {
@@ -26,6 +46,8 @@ export class AppComponent {
 
     // const jwtHelper = new JwtHelper();
     // console.log(JSON.parse(jwtHelper.decodeToken(this.oauthService.getAccessToken())));
+
+    console.log('getIdToken : ' + this.oauthService.getIdToken());
   }
 
   private loadUserProfile() {
