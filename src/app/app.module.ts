@@ -11,7 +11,14 @@ import { initializer } from './app.init';
     AppComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, OAuthModule.forRoot()
+    BrowserModule, HttpClientModule,
+    /*OAuthModule.forRoot({
+      resourceServer: {
+          allowedUrls: ['/oauthserver/*', '/oauthclient/*'],
+          sendAccessToken: true
+      }
+  })*/
+  OAuthModule.forRoot(),
   ],
   providers: [
     {
@@ -20,11 +27,11 @@ import { initializer } from './app.init';
       multi: true,
       deps: [OAuthService]
     },
-    {
+    /*{
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptor,
       multi: true,
-    },
+    },*/
     HttpClient
   ],
   bootstrap: [AppComponent]

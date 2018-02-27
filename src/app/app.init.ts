@@ -8,11 +8,23 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
             try {
                 oAuthService.configure(authConfig);
                 oAuthService.tokenValidationHandler = new JwksValidationHandler();
-                // this.oauthService.loadDiscoveryDocumentAndTryLogin();
 
-                await oAuthService.loadDiscoveryDocumentAndLogin().then(done => {
-                  console.log('Done');
+                // Spring
+                await oAuthService.fetchTokenUsingPasswordFlow('user', 'user').then((done) => {
+                    console.log('Done');
+                    // Loading data about the user
+                    // return oAuthService.loadUserProfile();
                 });
+
+                // Wso2 Keycloak
+                /*await oAuthService.loadDiscoveryDocument()
+                .then(done => {
+                    console.log('Done');
+                });*/
+
+                /*await oAuthService.loadDiscoveryDocumentAndLogin().then(done => {
+                  console.log('Done');
+                });*/
                 resolve();
             } catch (error) {
                 reject(error);

@@ -19,9 +19,16 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
         const token: string = this.oauthService.getAccessToken();
 
-        if (token) {
+        /*if (token) {
             req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
-        }
+        }*/
+
+        /*const header = 'Bearer ' + token;
+        const headers = req.headers.set('Authorization', header);
+        req = req.clone({ headers });
+        console.log('req : ' + JSON.stringify(req));*/
+
+        // return next.handle(req);
 
         return next.handle(req)
             .do((event: HttpEvent<any>) => {
@@ -35,6 +42,14 @@ export class AppHttpInterceptor implements HttpInterceptor {
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
                         console.log('error 401');
+
+                        const header = 'Bearer ' + token;
+                        const headers = req.headers.set('Authorization', header);
+
+                        req = req.clone({ headers });
+
+                        console.log('req : ' + JSON.stringify(req));
+                        return next.handle(req);
                     }
 
                     if (error.status === 404) {

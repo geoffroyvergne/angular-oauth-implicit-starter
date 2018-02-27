@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './auth-config';
@@ -50,10 +51,31 @@ export class AppComponent {
     console.log('getIdToken : ' + this.oauthService.getIdToken());
   }
 
+  private loadSecuredTest() {
+    /*this.http.get('/oauthclient/secured/test').subscribe(response => {
+      console.log('loadSecuredTest : ' + response);
+    });*/
+
+    this.http.get('/oauthclient/secured/test',
+    {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + this.oauthService.getAccessToken() } )
+    })
+    // this.http.get('/oauthclient/secured/test')
+    .subscribe(
+      data => {
+         this.data = data;
+         console.log('loadSecuredTest : ' + JSON.stringify(this.data));
+    });
+  }
+
   private loadUserProfile() {
     this.oauthService.loadUserProfile().then(userProfile => {
       console.log('loadUserProfile : ' + JSON.stringify(userProfile));
     });
+  }
+
+  private login() {
+    this.oauthService.initImplicitFlow();
   }
 
   private logout() {
