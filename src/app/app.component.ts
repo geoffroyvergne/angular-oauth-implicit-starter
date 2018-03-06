@@ -72,6 +72,16 @@ export class AppComponent {
     this.oauthService.loadUserProfile().then(userProfile => {
       console.log('loadUserProfile : ' + JSON.stringify(userProfile));
     });
+
+    /*this.http.get('/oauthserver/auth/user',
+    {
+      headers: new HttpHeaders({ Authorization: 'Bearer ' + this.oauthService.getAccessToken() } )
+    })
+    .subscribe(
+      data => {
+         this.data = data;
+         console.log('loadUserProfile : ' + JSON.stringify(this.data));
+    });*/
   }
 
   private login() {
@@ -79,6 +89,8 @@ export class AppComponent {
   }
 
   private logout() {
+    console.log('logout');
     this.oauthService.logOut();
+    window.location.href = 'http://localhost:4200';
   }
 }

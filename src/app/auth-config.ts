@@ -18,11 +18,11 @@ export const authConfig: AuthConfig = {
     requireHttps: false*/
 
     // Spring
-    tokenEndpoint: '/oauthserver/oauth/token',
-    userinfoEndpoint: '/oauthserver/auth/user',
-    clientId: 'clientapp',
-    scope: 'read write',
+    tokenEndpoint: '/identity/oauth/token',
+    userinfoEndpoint: '/identity/auth/user',
+    clientId: 'foo',
+    scope: 'openid',
     requireHttps: false,
-    dummyClientSecret: '123456',
+    dummyClientSecret: 'abc123',
     oidc: false
 };

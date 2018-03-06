@@ -10,6 +10,14 @@
     "/oauthclient": {
       "target": "http://localhost:9001",
       "secure": false
+    },
+    "/resource": {
+      "target": "http://localhost:9001",
+      "secure": false
+    },
+    "/identity": {
+      "target": "http://localhost:9000",
+      "secure": false
     }
   }
   
