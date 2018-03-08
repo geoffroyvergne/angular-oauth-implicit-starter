@@ -5,13 +5,14 @@ import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { initializer } from './app.init';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule,
+    BrowserModule, HttpClientModule, HttpModule, 
     /*OAuthModule.forRoot({
       resourceServer: {
           allowedUrls: ['/oauthserver/*', '/oauthclient/*'],

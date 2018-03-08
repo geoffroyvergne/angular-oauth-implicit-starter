@@ -8,12 +8,14 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
         return new Promise(async (resolve, reject) => {
             try {
 
+                // Spring
                 oAuthService.loginUrl = 'http://localhost:9000/identity/oauth/authorize';
                 oAuthService.redirectUri = 'http://localhost:4200';
                 oAuthService.clientId = 'sampleClientId';
                 oAuthService.scope = 'read write foo bar';
                 oAuthService.setStorage(sessionStorage);
                 oAuthService.oidc = false;
+                // oAuthService.logoutUrl = '';
 
                 if (! oAuthService.hasValidAccessToken()) {
                     oAuthService.tryLogin({});
@@ -28,7 +30,7 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
 
                 // const headers = new HttpHeaders();
                 // headers.append('Authorization', 'Basic ' + btoa('foo:foosecret'));
-                // Spring
+
                 /*await oAuthService.fetchTokenUsingPasswordFlow('foo', 'foosecret', headers)
                 .then((done) => {
                     console.log('Done');

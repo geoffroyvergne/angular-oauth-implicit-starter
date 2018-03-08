@@ -1,10 +1,10 @@
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from './auth-config';
 import { JwksValidationHandler } from 'angular-oauth2-oidc';
-// import * as decode from 'angular-jwt';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'app';
   data: any;
 
-  constructor(private oauthService: OAuthService, private http: HttpClient) {
+  constructor(private oauthService: OAuthService, private http: Http) {
   }
 
   private http404Test() {
@@ -45,9 +45,6 @@ export class AppComponent {
     console.log('userinfoEndpoint : ' + this.oauthService.userinfoEndpoint);
     console.log('getIdentityClaims : ' + JSON.stringify(this.oauthService.getIdentityClaims()));
 
-    // const jwtHelper = new JwtHelper();
-    // console.log(JSON.parse(jwtHelper.decodeToken(this.oauthService.getAccessToken())));
-
     console.log('getIdToken : ' + this.oauthService.getIdToken());
   }
 
@@ -56,10 +53,7 @@ export class AppComponent {
       console.log('loadSecuredTest : ' + response);
     });*/
 
-    this.http.get('/oauthclient/secured/test',
-    {
-      headers: new HttpHeaders({ Authorization: 'Bearer ' + this.oauthService.getAccessToken() } )
-    })
+    this.http.get('/oauthclient/secured/test')
     // this.http.get('/oauthclient/secured/test')
     .subscribe(
       data => {
@@ -69,19 +63,25 @@ export class AppComponent {
   }
 
   private loadUserProfile() {
-    this.oauthService.loadUserProfile().then(userProfile => {
+    /*this.oauthService.loadUserProfile().then(userProfile => {
       console.log('loadUserProfile : ' + JSON.stringify(userProfile));
-    });
+    });*/
 
-    /*this.http.get('/oauthserver/auth/user',
+    // 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+
+    const headers = new Headers(
     {
-      headers: new HttpHeaders({ Authorization: 'Bearer ' + this.oauthService.getAccessToken() } )
-    })
+      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      'Authorization': 'Bearer ' + this.oauthService.getAccessToken()
+    });
+    const options = new RequestOptions({ headers: headers });
+
+    this.http.get('http://localhost:9001/resource/users/me', options)
     .subscribe(
       data => {
          this.data = data;
          console.log('loadUserProfile : ' + JSON.stringify(this.data));
-    });*/
+    });
   }
 
   private login() {
@@ -90,7 +90,7 @@ export class AppComponent {
 
   private logout() {
     console.log('logout');
-    this.oauthService.logOut();
-    window.location.href = 'http://localhost:4200';
+    // this.oauthService.logOut();
+    // window.location.href = 'http://localhost:4200';
   }
 }
