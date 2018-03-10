@@ -15,7 +15,7 @@ export class AppComponent {
   title = 'app';
   data: any;
 
-  constructor(private oauthService: OAuthService, private http: Http) {
+  constructor(private oauthService: OAuthService, private http: Http, private httpClient: HttpClient) {
   }
 
   private http404Test() {
@@ -69,14 +69,14 @@ export class AppComponent {
 
     // 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
 
-    const headers = new Headers(
+    /*const headers = new Headers(
     {
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
       'Authorization': 'Bearer ' + this.oauthService.getAccessToken()
     });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers });*/
 
-    this.http.get('http://localhost:9001/resource/users/me', options)
+    this.httpClient.get('/resource/users/me')
     .subscribe(
       data => {
          this.data = data;
@@ -89,8 +89,20 @@ export class AppComponent {
   }
 
   private logout() {
-    console.log('logout');
-    // this.oauthService.logOut();
+    /*console.log('logout');
+    this.oauthService.logOut();
+    location.reload();*/
+
     // window.location.href = 'http://localhost:4200';
+
+    // this.oauthService.logOut();
+
+    this.http.delete('/identity/session/logout').subscribe(
+      data => {
+        console.log('token revoked');
+        this.oauthService.logOut();
+        location.reload();
+      }
+    );
   }
 }

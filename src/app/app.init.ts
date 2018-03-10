@@ -9,7 +9,7 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
             try {
 
                 // Spring
-                oAuthService.loginUrl = 'http://localhost:9000/identity/oauth/authorize';
+                oAuthService.loginUrl = 'http://localhost:4200/identity/oauth/authorize';
                 oAuthService.redirectUri = 'http://localhost:4200';
                 oAuthService.clientId = 'sampleClientId';
                 oAuthService.scope = 'read write foo bar';

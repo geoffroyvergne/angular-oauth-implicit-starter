@@ -28,11 +28,11 @@ import { HttpModule } from '@angular/http';
       multi: true,
       deps: [OAuthService]
     },
-    /*{
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptor,
       multi: true,
-    },*/
+    },
     HttpClient
   ],
   bootstrap: [AppComponent]
