@@ -11,7 +11,7 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
                 // Spring
                 oAuthService.loginUrl = 'http://localhost:4200/identity/oauth/authorize';
                 oAuthService.redirectUri = 'http://localhost:4200';
-                oAuthService.clientId = 'sampleClientId';
+                oAuthService.clientId = 'implicittest';
                 oAuthService.scope = 'read write foo bar';
                 oAuthService.setStorage(sessionStorage);
                 oAuthService.oidc = false;

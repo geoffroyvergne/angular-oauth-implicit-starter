@@ -48,13 +48,12 @@ export class AppComponent {
     console.log('getIdToken : ' + this.oauthService.getIdToken());
   }
 
-  private loadSecuredTest() {
-    /*this.http.get('/oauthclient/secured/test').subscribe(response => {
-      console.log('loadSecuredTest : ' + response);
-    });*/
+  private isLogged() {
+    return this.oauthService.hasValidAccessToken();
+  }
 
-    this.http.get('/oauthclient/secured/test')
-    // this.http.get('/oauthclient/secured/test')
+  private loadSecuredTest() {
+    this.httpClient.get('/resource/secured/test')
     .subscribe(
       data => {
          this.data = data;
@@ -63,19 +62,6 @@ export class AppComponent {
   }
 
   private loadUserProfile() {
-    /*this.oauthService.loadUserProfile().then(userProfile => {
-      console.log('loadUserProfile : ' + JSON.stringify(userProfile));
-    });*/
-
-    // 'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-
-    /*const headers = new Headers(
-    {
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Bearer ' + this.oauthService.getAccessToken()
-    });
-    const options = new RequestOptions({ headers: headers });*/
-
     this.httpClient.get('/resource/users/me')
     .subscribe(
       data => {
@@ -89,14 +75,6 @@ export class AppComponent {
   }
 
   private logout() {
-    /*console.log('logout');
-    this.oauthService.logOut();
-    location.reload();*/
-
-    // window.location.href = 'http://localhost:4200';
-
-    // this.oauthService.logOut();
-
     this.http.delete('/identity/session/logout').subscribe(
       data => {
         console.log('token revoked');

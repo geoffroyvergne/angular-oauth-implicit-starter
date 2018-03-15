@@ -7,19 +7,19 @@
 </div>
 <h2>Here are some links to help you start: </h2>
 
-<a (click)="getToken()">getToken</a>
+<a *ngIf="isLogged()" (click)="getToken()">getToken</a>
 <br>
-<a (click)="loadUserProfile()">loadUserProfile</a>
+<a *ngIf="isLogged()" (click)="loadUserProfile()">loadUserProfile</a>
 <br>
-<a (click)="logout()">logout</a>
+<a *ngIf="isLogged()" (click)="logout()">logout</a>
 <br>
-<a (click)="login()">login</a>
+<a *ngIf="!isLogged()" (click)="login()">login</a>
 <br>
 <a (click)="http404Test()">http404Test</a>
 <br>
 <a (click)="httpStatusTest()">httpStatusTest</a>
 <br>
-<a (click)="loadSecuredTest()">loadSecuredTest</a>
+<a *ngIf="isLogged()" (click)="loadSecuredTest()">loadSecuredTest</a>
 
 <ul>
   <li>
