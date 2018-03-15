@@ -75,12 +75,14 @@ export class AppComponent {
   }
 
   private logout() {
-    this.http.delete('/identity/session/logout').subscribe(
+    this.http.get('http://localhost:9000/identity/session/logout').subscribe(
       data => {
         console.log('token revoked');
         this.oauthService.logOut();
         location.reload();
       }
     );
+
+    // this.oauthService.logOut();
   }
 }

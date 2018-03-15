@@ -7,34 +7,15 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
     return (): Promise<any> => {
         return new Promise(async (resolve, reject) => {
             try {
+                oAuthService.setStorage(sessionStorage);
+                oAuthService.configure(authConfig);
+                oAuthService.tokenValidationHandler = new JwksValidationHandler();
 
                 // Spring
-                oAuthService.loginUrl = 'http://localhost:4200/identity/oauth/authorize';
-                oAuthService.redirectUri = 'http://localhost:4200';
-                oAuthService.clientId = 'implicittest';
-                oAuthService.scope = 'read write foo bar';
-                oAuthService.setStorage(sessionStorage);
-                oAuthService.oidc = false;
-                // oAuthService.logoutUrl = '';
-
                 if (! oAuthService.hasValidAccessToken()) {
                     oAuthService.tryLogin({});
-                    oAuthService.initImplicitFlow();
+                    await oAuthService.initImplicitFlow();
                 }
-
-                // oAuthService.configure(authConfig);
-                // oAuthService.tokenValidationHandler = new JwksValidationHandler();
-
-                // oAuthService.tryLogin({});
-                // oAuthService.initImplicitFlow();
-
-                // const headers = new HttpHeaders();
-                // headers.append('Authorization', 'Basic ' + btoa('foo:foosecret'));
-
-                /*await oAuthService.fetchTokenUsingPasswordFlow('foo', 'foosecret', headers)
-                .then((done) => {
-                    console.log('Done');
-                });*/
 
                 // Wso2 Keycloak
                 /*await oAuthService.loadDiscoveryDocument()

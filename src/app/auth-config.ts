@@ -10,19 +10,19 @@ export const authConfig: AuthConfig = {
     skipIssuerCheck: true,
     strictDiscoveryDocumentValidation: false,
     scope: 'openid'*/
-    
+
     // Keycloak
-    /*issuer: 'http://127.0.0.1:8080/auth/realms/test',
+    /*issuer: 'http://localhost:8080/auth/realms/test',
     redirectUri: 'http://localhost:4200',
     clientId: 'test',
-    requireHttps: false*/
+    requireHttps: false,
+    logoutUrl: 'http://localhost:8080/auth/realms/test/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200'*/
 
     // Spring
-    tokenEndpoint: '/identity/oauth/token',
-    userinfoEndpoint: '/identity/auth/user',
-    clientId: 'foo',
-    scope: 'openid',
-    requireHttps: false,
-    dummyClientSecret: 'abc123',
-    oidc: false
+    loginUrl: 'http://localhost:9000/identity/oauth/authorize',
+    redirectUri: 'http://localhost:4200',
+    clientId: 'implicittest',
+    scope: 'openid read write foo bar',
+    oidc: false,
+    // logoutUrl: 'http://localhost:9000/identity/session/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200'
 };
