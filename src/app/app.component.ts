@@ -16,6 +16,7 @@ export class AppComponent {
   data: any;
 
   constructor(private oauthService: OAuthService, private http: Http, private httpClient: HttpClient) {
+    
   }
 
   private http404Test() {
@@ -75,13 +76,15 @@ export class AppComponent {
   }
 
   private logout() {
-    this.http.get('http://localhost:9000/identity/session/logout').subscribe(
-      data => {
-        console.log('token revoked');
-        this.oauthService.logOut();
-        location.reload();
-      }
-    );
+    sessionStorage.clear();
+    window.location.href = 'http://localhost:9000/identity/session/logout';
+
+    // console.log('session revoked');
+    // this.oauthService.logOut();
+    // location.reload();
+    // sessionStorage.clear();
+    // this.oauthService.initImplicitFlow();
+    // window.location.href = 'http://localhost:4200';
 
     // this.oauthService.logOut();
   }

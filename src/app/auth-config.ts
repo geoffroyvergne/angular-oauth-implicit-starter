@@ -24,5 +24,7 @@ export const authConfig: AuthConfig = {
     clientId: 'implicittest',
     scope: 'openid read write foo bar',
     oidc: false,
+    clearHashAfterLogin: true,
+    disableAtHashCheck: true
     // logoutUrl: 'http://localhost:9000/identity/session/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200'
 };

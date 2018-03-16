@@ -13,9 +13,15 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
 
                 // Spring
                 if (! oAuthService.hasValidAccessToken()) {
-                    oAuthService.tryLogin({});
-                    await oAuthService.initImplicitFlow();
+                    await oAuthService.tryLogin()
+                    .then(done => {
+                        console.log('Done');
+                        oAuthService.initImplicitFlow();
+                    });
+                    // await oAuthService.initImplicitFlow();
                 }
+
+                document.location.hash = '';
 
                 // Wso2 Keycloak
                 /*await oAuthService.loadDiscoveryDocument()
