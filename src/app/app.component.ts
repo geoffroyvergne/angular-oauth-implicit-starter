@@ -16,7 +16,7 @@ export class AppComponent {
   data: any;
 
   constructor(private oauthService: OAuthService, private http: Http, private httpClient: HttpClient) {
-    
+
   }
 
   private http404Test() {
@@ -77,7 +77,7 @@ export class AppComponent {
 
   private logout() {
     sessionStorage.clear();
-    window.location.href = 'http://localhost:9000/identity/session/logout';
+    window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
 
     // console.log('session revoked');
     // this.oauthService.logOut();

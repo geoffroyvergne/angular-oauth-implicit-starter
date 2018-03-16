@@ -39,6 +39,9 @@ export class AppHttpInterceptor implements HttpInterceptor {
                 if (error instanceof HttpErrorResponse) {
                     if (error.status === 401) {
                         console.log('error 401');
+
+                        sessionStorage.clear();
+                        window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
                     }
 
                     if (error.status === 404) {
