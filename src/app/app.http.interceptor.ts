@@ -3,6 +3,8 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { environment } from '../environments/environment';
+import { Environments } from './environments';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
@@ -40,8 +42,10 @@ export class AppHttpInterceptor implements HttpInterceptor {
                     if (error.status === 401) {
                         console.log('error 401');
 
-                        sessionStorage.clear();
-                        window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
+                        if (environment.name === Environments.SPRING) {
+                            sessionStorage.clear();
+                            window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
+                        }
                     }
 
                     if (error.status === 404) {

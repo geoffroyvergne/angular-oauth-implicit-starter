@@ -1,37 +1,53 @@
 import { OAuthService } from 'angular-oauth2-oidc';
-import { authConfig } from './auth-config';
+import { authConfigSpring, authConfigKeycloak, authConfigWso2 } from './app.config';
 import { JwksValidationHandler } from 'angular-oauth2-oidc';
 import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/environment';
+import { Environments } from './environments';
 
 export function initializer(oAuthService: OAuthService): () => Promise<any> {
     return (): Promise<any> => {
         return new Promise(async (resolve, reject) => {
             try {
+                console.log('environment : ' + environment.name);
+
                 oAuthService.setStorage(sessionStorage);
-                oAuthService.configure(authConfig);
                 oAuthService.tokenValidationHandler = new JwksValidationHandler();
 
                 // Spring
-                if (! oAuthService.hasValidAccessToken()) {
-                    await oAuthService.tryLogin()
-                    .then(done => {
-                        console.log('Done');
-                        oAuthService.initImplicitFlow();
-                    });
-                    // await oAuthService.initImplicitFlow();
+                if (environment.name === Environments.SPRING) {
+                    oAuthService.configure(authConfigSpring);
+                    if (! oAuthService.hasValidAccessToken()) {
+                        await oAuthService.tryLogin()
+                        .then(done => {
+                            console.log('Done');
+                            oAuthService.initImplicitFlow();
+                        });
+                    }
+
+                    document.location.hash = '';
                 }
 
-                document.location.hash = '';
-
                 // Wso2 Keycloak
-                /*await oAuthService.loadDiscoveryDocument()
-                .then(done => {
-                    console.log('Done');
-                });*/
+                if (environment.name === Environments.KEYCLOAK || environment.name === Environments.WSO2) {
 
-                /*await oAuthService.loadDiscoveryDocumentAndLogin().then(done => {
-                  console.log('Done');
-                });*/
+                    if (environment.name === Environments.KEYCLOAK) {
+                        oAuthService.configure(authConfigKeycloak);
+                    }
+
+                    if (environment.name === Environments.WSO2) {
+                        oAuthService.configure(authConfigWso2);
+                    }
+
+                    /*await oAuthService.loadDiscoveryDocument()
+                    .then(done => {
+                        console.log('Done');
+                    });*/
+
+                    await oAuthService.loadDiscoveryDocumentAndLogin().then(done => {
+                      console.log('Done');
+                    });
+                }
 
                 resolve();
             } catch (error) {

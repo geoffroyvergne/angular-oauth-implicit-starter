@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 import { AppHttpInterceptor } from './app.http.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
@@ -33,7 +34,7 @@ import { HttpModule } from '@angular/http';
       useClass: AppHttpInterceptor,
       multi: true,
     },
-    HttpClient
+    HttpClient, AppService
   ],
   bootstrap: [AppComponent]
 })

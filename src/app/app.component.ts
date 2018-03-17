@@ -1,10 +1,12 @@
+import { AppService } from './app.service';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { authConfig } from './auth-config';
-import { JwksValidationHandler } from 'angular-oauth2-oidc';
+import { environment } from '../environments/environment';
+import { Environments } from './environments';
+import { config } from './app.config';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +14,17 @@ import { JwksValidationHandler } from 'angular-oauth2-oidc';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  environmentName = environment.name;
   title = 'app';
   data: any;
 
-  constructor(private oauthService: OAuthService, private http: Http, private httpClient: HttpClient) {
+  constructor(private appService: AppService) {
 
   }
 
   private http404Test() {
     console.log('http404Test');
-    this.http.get('qsdqsd').subscribe(
+    this.appService.http404Test().subscribe(
       data => {
          this.data = data;
          console.log(this.data);
@@ -30,7 +33,7 @@ export class AppComponent {
 
   private httpStatusTest() {
     console.log('httpStatusTest');
-    this.http.get('assets/status.json').subscribe(
+    this.appService.httpStatusTest().subscribe(
       data => {
          this.data = data;
          console.log(this.data);
@@ -38,23 +41,23 @@ export class AppComponent {
   }
 
   private getToken() {
-    console.log('getToken : ' + this.oauthService.getAccessToken());
-    console.log('getRefreshToken : ' + this.oauthService.getRefreshToken());
-    console.log('hasValidAccessToken : ' + this.oauthService.hasValidAccessToken());
-    console.log('loginUrl : ' + this.oauthService.loginUrl);
-    console.log('logoutUrl : ' + this.oauthService.logoutUrl);
-    console.log('userinfoEndpoint : ' + this.oauthService.userinfoEndpoint);
-    console.log('getIdentityClaims : ' + JSON.stringify(this.oauthService.getIdentityClaims()));
+    console.log('getToken : ' + this.appService.getOauthService().getAccessToken());
+    console.log('getRefreshToken : ' + this.appService.getOauthService().getRefreshToken());
+    console.log('hasValidAccessToken : ' + this.appService.getOauthService().hasValidAccessToken());
+    console.log('loginUrl : ' + this.appService.getOauthService().loginUrl);
+    console.log('logoutUrl : ' + this.appService.getOauthService().logoutUrl);
+    console.log('userinfoEndpoint : ' + this.appService.getOauthService().userinfoEndpoint);
+    console.log('getIdentityClaims : ' + JSON.stringify(this.appService.getOauthService().getIdentityClaims()));
 
-    console.log('getIdToken : ' + this.oauthService.getIdToken());
+    console.log('getIdToken : ' + this.appService.getOauthService().getIdToken());
   }
 
   private isLogged() {
-    return this.oauthService.hasValidAccessToken();
+    return this.appService.isLogged();
   }
 
   private loadSecuredTest() {
-    this.httpClient.get('/resource/secured/test')
+    this.appService.loadSecuredTest()
     .subscribe(
       data => {
          this.data = data;
@@ -63,7 +66,7 @@ export class AppComponent {
   }
 
   private loadUserProfile() {
-    this.httpClient.get('/resource/users/me')
+    this.appService.loadUserProfile()
     .subscribe(
       data => {
          this.data = data;
@@ -72,20 +75,10 @@ export class AppComponent {
   }
 
   private login() {
-    this.oauthService.initImplicitFlow();
+    this.appService.login();
   }
 
   private logout() {
-    sessionStorage.clear();
-    window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
-
-    // console.log('session revoked');
-    // this.oauthService.logOut();
-    // location.reload();
-    // sessionStorage.clear();
-    // this.oauthService.initImplicitFlow();
-    // window.location.href = 'http://localhost:4200';
-
-    // this.oauthService.logOut();
+    this.appService.logout();
   }
 }

@@ -25,7 +25,10 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
+        "prod": "environments/environment.prod.ts",
+        "spring": "environments/environment.spring.ts",
+        "keycloak": "environments/environment.keycloak.ts",
+        "wso2": "environments/environment.wso2.ts"
       }
     }
   ],

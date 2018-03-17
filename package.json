@@ -4,7 +4,11 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "serve": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
+    "start": "npm run serve -- --environment spring",
+    "spring": "npm run serve -- --environment spring",
+    "keycloak": "npm run serve -- --environment keycloak",
+    "wso2": "npm run serve -- --environment wso2",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
