@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  name: 'DEFAULT'
+  name: 'DEFAULT',
+  accountUrl: ''
 };

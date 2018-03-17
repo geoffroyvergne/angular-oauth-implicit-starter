@@ -22,6 +22,12 @@ export class AppComponent {
 
   }
 
+  getUserInfo() {
+    console.log('getUserInfo');
+    console.log('getUserInfo' +
+    JSON.stringify(this.appService.jwtHelper().decodeToken(this.appService.getOauthService().getAccessToken())));
+  }
+
   private http404Test() {
     console.log('http404Test');
     this.appService.http404Test().subscribe(
@@ -80,5 +86,9 @@ export class AppComponent {
 
   private logout() {
     this.appService.logout();
+  }
+
+  private getAccountUrl() {
+    window.location.href = environment.accountUrl;
   }
 }

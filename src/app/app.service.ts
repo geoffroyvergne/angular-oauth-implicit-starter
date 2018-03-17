@@ -8,6 +8,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../environments/environment';
 import { Environments } from './environments';
 import { config } from './app.config';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AppService {
@@ -49,8 +50,13 @@ export class AppService {
         return this.httpClient.get(config.apiBaseUrl + 'resource/secured/test');
       }
 
-      public loadUserProfile() {
+      /*public loadUserProfile() {
         return this.httpClient.get(config.apiBaseUrl + 'resource/users/me');
+      }*/
+
+      public loadUserProfile() {
+        return this.httpClient.get(config.apiBaseUrl + 'resource/user/me');
+        // return this.http.get('http://localhost:9000/identity/user/me');
       }
 
       public login() {
@@ -70,4 +76,8 @@ export class AppService {
           this.oauthService.logOut();
         }
       }
+
+    jwtHelper() {
+      return new JwtHelperService();
+    }
 }

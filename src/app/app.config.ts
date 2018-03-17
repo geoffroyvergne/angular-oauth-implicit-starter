@@ -14,7 +14,8 @@ export const authConfigSpring: AuthConfig = {
     oidc: false,
     clearHashAfterLogin: true,
     disableAtHashCheck: true,
-    logoutUrl: 'http://localhost:9000/identity/session/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200'
+    logoutUrl: 'http://localhost:9000/identity/session/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200',
+    userinfoEndpoint: ''
 };
 
 export const authConfigKeycloak: AuthConfig = {
@@ -23,7 +24,8 @@ export const authConfigKeycloak: AuthConfig = {
     redirectUri: 'http://localhost:4200',
     clientId: 'test',
     requireHttps: false,
-    logoutUrl: 'http://localhost:8080/auth/realms/test/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200'
+    logoutUrl: 'http://localhost:8080/auth/realms/test/protocol/openid-connect/logout?redirect_uri=http%3A%2F%2Flocalhost%3A4200',
+    userinfoEndpoint: 'http://localhost:8080/auth/realms/test/protocol/openid-connect/userinfo'
 };
 
 export const authConfigWso2: AuthConfig = {
@@ -34,5 +36,6 @@ export const authConfigWso2: AuthConfig = {
     requireHttps: false,
     skipIssuerCheck: true,
     strictDiscoveryDocumentValidation: false,
-    scope: 'openid'
+    scope: 'openid',
+    userinfoEndpoint: ''
 };

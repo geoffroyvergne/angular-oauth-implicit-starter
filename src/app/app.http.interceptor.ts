@@ -1,3 +1,4 @@
+import { AppService } from './app.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse , HttpResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,7 +9,7 @@ import { Environments } from './environments';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
-    constructor(private oauthService: OAuthService) {
+    constructor(private oauthService: OAuthService, private appService: AppService) {
 
     }
 
@@ -42,10 +43,12 @@ export class AppHttpInterceptor implements HttpInterceptor {
                     if (error.status === 401) {
                         console.log('error 401');
 
-                        if (environment.name === Environments.SPRING) {
+                        /*if (environment.name === Environments.SPRING) {
                             sessionStorage.clear();
                             window.location.href = 'http://localhost:9000/identity/session/logout?redirect_uri=http://localhost:4200';
-                        }
+                        }*/
+
+                        this.appService.logout();
                     }
 
                     if (error.status === 404) {

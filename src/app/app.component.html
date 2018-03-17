@@ -9,6 +9,8 @@
 
 <a *ngIf="isLogged()" (click)="getToken()">getToken</a>
 <br>
+<a (click)="getUserInfo()" *ngIf="isLogged()">getUserInfo</a>
+<br>
 <a *ngIf="isLogged()" (click)="loadUserProfile()">loadUserProfile</a>
 <br>
 <a *ngIf="isLogged()" (click)="logout()">logout</a>
@@ -20,6 +22,8 @@
 <a (click)="httpStatusTest()">httpStatusTest</a>
 <br>
 <a *ngIf="isLogged()" (click)="loadSecuredTest()">loadSecuredTest</a>
+<br>
+<a *ngIf="isLogged()" (click)="getAccountUrl()">Account</a>
 
 <ul>
   <li>
