@@ -72,6 +72,9 @@ export class AppService {
           // location.reload();
           // sessionStorage.clear();
           // this.oauthService.initImplicitFlow();
+        } else if (environment.name === Environments.AUTH0) {
+          this.oauthService.logOut();
+          window.location.href = 'https://gvergne.eu.auth0.com/v2/logout?returnTo=http%3A%2F%2Flocalhost:4200&client_id=OHoSdIXqpMp7xz5OFffam94d9OYEvL7h';          
         } else {
           this.oauthService.logOut();
         }

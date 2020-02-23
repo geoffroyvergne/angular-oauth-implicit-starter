@@ -81,6 +81,7 @@ export class AppComponent {
   }
 
   private login() {
+    console.log('login');
     this.appService.login();
   }
 

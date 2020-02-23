@@ -28,7 +28,8 @@
         "prod": "environments/environment.prod.ts",
         "spring": "environments/environment.spring.ts",
         "keycloak": "environments/environment.keycloak.ts",
-        "wso2": "environments/environment.wso2.ts"
+        "wso2": "environments/environment.wso2.ts",
+        "auth0": "environments/environment.auth0.ts"
       }
     }
   ],

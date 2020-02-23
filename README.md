@@ -4,6 +4,7 @@ npm start (default spring)
 npm run spring
 npm run keycloak
 npm run wso2
+npm run auth0
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 

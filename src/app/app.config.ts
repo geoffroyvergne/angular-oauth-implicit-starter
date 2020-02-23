@@ -33,9 +33,31 @@ export const authConfigWso2: AuthConfig = {
     issuer: 'https://localhost:9443/oauth2/oidcdiscovery',
     redirectUri: 'http://localhost:4200',
     clientId: '7mETTt_RwUw76kksO_KWyWBkPb4a',
+    // dummyClientSecret: '',
     requireHttps: false,
     skipIssuerCheck: true,
     strictDiscoveryDocumentValidation: false,
     scope: 'openid',
-    userinfoEndpoint: ''
+    userinfoEndpoint: 'https://localhost:9443/oauth2/userinfo?schema=openid'
 };
+
+export const authConfigAuth0: AuthConfig = {
+    // Auth0
+    issuer: 'https://gvergne.eu.auth0.com/',
+    redirectUri: 'http://localhost:4200',
+    clientId: 'OHoSdIXqpMp7xz5OFffam94d9OYEvL7h',
+    requireHttps: false,
+    logoutUrl: 'https://gvergne.eu.auth0.com/v2/logout?federated',
+    userinfoEndpoint: 'https://gvergne.eu.auth0.com/userinfo',
+    responseType: 'token id_token',
+    scope: 'openid profile email name user_metadata'
+};
+
+/*
+https://gvergne.eu.auth0.com/authorize
+?response_type=token
+&client_id=OHoSdIXqpMp7xz5OFffam94d9OYEvL7h
+&redirect_uri=https://YOUR_APP/callback
+&state=STATE
+&nonce=NONCE
+*/

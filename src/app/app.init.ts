@@ -1,5 +1,5 @@
 import { OAuthService } from 'angular-oauth2-oidc';
-import { authConfigSpring, authConfigKeycloak, authConfigWso2 } from './app.config';
+import { authConfigSpring, authConfigKeycloak, authConfigWso2, authConfigAuth0 } from './app.config';
 import { JwksValidationHandler } from 'angular-oauth2-oidc';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -29,7 +29,7 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
                 }
 
                 // Wso2 Keycloak
-                if (environment.name === Environments.KEYCLOAK || environment.name === Environments.WSO2) {
+                if (environment.name === Environments.KEYCLOAK || environment.name === Environments.WSO2  || environment.name === Environments.AUTH0) {
 
                     if (environment.name === Environments.KEYCLOAK) {
                         oAuthService.configure(authConfigKeycloak);
@@ -37,6 +37,10 @@ export function initializer(oAuthService: OAuthService): () => Promise<any> {
 
                     if (environment.name === Environments.WSO2) {
                         oAuthService.configure(authConfigWso2);
+                    }
+
+                    if (environment.name === Environments.AUTH0) {
+                        oAuthService.configure(authConfigAuth0);
                     }
 
                     /*await oAuthService.loadDiscoveryDocument()
