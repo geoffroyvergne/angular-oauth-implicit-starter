@@ -50,7 +50,7 @@ export const authConfigAuth0: AuthConfig = {
     logoutUrl: 'https://gvergne.eu.auth0.com/v2/logout?federated',
     userinfoEndpoint: 'https://gvergne.eu.auth0.com/userinfo',
     responseType: 'token id_token',
-    scope: 'openid profile email name user_metadata'
+    scope: 'openid profile email name user_metadata, roles'
 };
 
 /*
